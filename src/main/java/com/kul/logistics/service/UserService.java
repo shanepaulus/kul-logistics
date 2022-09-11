@@ -10,7 +10,9 @@ import com.kul.logistics.domain.User;
 
 public interface UserService {
 
-	boolean registerUser(User user);
+	User registerUser(User user);
+
+	User updateUser(User user);
 
 	String loginUser(User user);
 
