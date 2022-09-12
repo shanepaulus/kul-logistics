@@ -1,6 +1,7 @@
 package com.kul.logistics.model;
 
-import lombok.Data;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
 
 /**
  * @author Shane Paulus
@@ -8,7 +9,8 @@ import lombok.Data;
  * Date Created: 10-Sep-2022
  */
 
-@Data
+@Getter
+@AllArgsConstructor
 public class UserLoginResponseModel {
 
 	private String token;

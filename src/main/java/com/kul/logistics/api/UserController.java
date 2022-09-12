@@ -9,15 +9,19 @@ import com.kul.logistics.domain.User;
 import com.kul.logistics.mapper.UserMapper;
 import com.kul.logistics.mapper.UserResponseMapper;
 import com.kul.logistics.model.UserLoginRequestModel;
+import com.kul.logistics.model.UserLoginResponseModel;
 import com.kul.logistics.model.UserRegisterRequestModel;
 import com.kul.logistics.model.UserRegisterResponseModel;
 import com.kul.logistics.model.UserUpdateRequestModel;
-import com.kul.logistics.service.UserService;
+import com.kul.logistics.model.UserUpdateResponseModel;
+import com.kul.logistics.service.impl.UserServiceImpl;
 
 import org.hibernate.exception.DataException;
 import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -43,22 +47,28 @@ import lombok.extern.slf4j.Slf4j;
 @AllArgsConstructor
 public class UserController {
 
-	private final UserService userService;
+	private final UserServiceImpl userService;
+	private final AuthenticationManager authenticationManager;
 
-	@PostMapping
+	@PostMapping("/register")
 	public ResponseEntity<UserRegisterResponseModel> registerUser(@Valid @RequestBody UserRegisterRequestModel requestModel) {
 		User user = UserMapper.INSTANCE.mapFromUserRegisterRequestModel(requestModel);
 		user = userService.registerUser(user);
-		return ResponseEntity.status(HttpStatus.CREATED).body(UserResponseMapper.INSTANCE.mapFromUserToRegisterNodel(user));
+		return ResponseEntity.status(HttpStatus.CREATED).body(UserResponseMapper.INSTANCE.mapFromUserToRegisterModel(user));
 	}
 
-	@PutMapping
-	public ResponseEntity updateUser(@Valid @RequestBody UserUpdateRequestModel requestModel) {
-		return null;
+	@PutMapping("/update")
+	public ResponseEntity<UserUpdateResponseModel> updateUser(@Valid @RequestBody UserUpdateRequestModel requestModel) {
+		User user = UserMapper.INSTANCE.mapFromUserUpdateRequestModel(requestModel);
+		user = userService.updateUser(user);
+		return ResponseEntity.ok(UserResponseMapper.INSTANCE.mapFromUserToUpdateModel(user));
 	}
 
-	public ResponseEntity loginUser(@RequestBody UserLoginRequestModel loginRequestModel) {
-		return null;
+	@PostMapping("/login")
+	public ResponseEntity<UserLoginResponseModel> loginUser(@RequestBody UserLoginRequestModel loginRequestModel) {
+		authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginRequestModel.getEmail(), loginRequestModel.getPassword()));
+		String token = userService.generateToken(loginRequestModel.getEmail());
+		return ResponseEntity.ok(new UserLoginResponseModel(token));
 	}
 
 	@ResponseStatus(HttpStatus.BAD_REQUEST)

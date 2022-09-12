@@ -2,6 +2,7 @@ package com.kul.logistics.mapper;
 
 import com.kul.logistics.domain.User;
 import com.kul.logistics.model.UserRegisterResponseModel;
+import com.kul.logistics.model.UserUpdateResponseModel;
 
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
@@ -17,6 +18,7 @@ public interface UserResponseMapper {
 
 	UserResponseMapper INSTANCE = Mappers.getMapper(UserResponseMapper.class);
 
-	UserRegisterResponseModel mapFromUserToRegisterNodel(User user);
+	UserRegisterResponseModel mapFromUserToRegisterModel(User user);
 
+	UserUpdateResponseModel mapFromUserToUpdateModel(User user);
 }

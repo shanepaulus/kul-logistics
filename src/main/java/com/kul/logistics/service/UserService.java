@@ -14,6 +14,6 @@ public interface UserService {
 
 	User updateUser(User user);
 
-	String loginUser(User user);
+	String generateToken(String email);
 
 }
