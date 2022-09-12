@@ -12,3 +12,5 @@ spring:
       settings:
         trace: false
         web-allow-others: false
+  jpa:
+    defer-datasource-initialization: true

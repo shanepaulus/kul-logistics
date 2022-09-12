@@ -12,8 +12,6 @@ import com.kul.logistics.model.UserLoginRequestModel;
 import com.kul.logistics.model.UserLoginResponseModel;
 import com.kul.logistics.model.UserRegisterRequestModel;
 import com.kul.logistics.model.UserRegisterResponseModel;
-import com.kul.logistics.model.UserUpdateRequestModel;
-import com.kul.logistics.model.UserUpdateResponseModel;
 import com.kul.logistics.service.impl.UserServiceImpl;
 
 import org.hibernate.exception.DataException;
@@ -26,7 +24,6 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -55,13 +52,6 @@ public class UserController {
 		User user = UserMapper.INSTANCE.mapFromUserRegisterRequestModel(requestModel);
 		user = userService.registerUser(user);
 		return ResponseEntity.status(HttpStatus.CREATED).body(UserResponseMapper.INSTANCE.mapFromUserToRegisterModel(user));
-	}
-
-	@PutMapping("/update")
-	public ResponseEntity<UserUpdateResponseModel> updateUser(@Valid @RequestBody UserUpdateRequestModel requestModel) {
-		User user = UserMapper.INSTANCE.mapFromUserUpdateRequestModel(requestModel);
-		user = userService.updateUser(user);
-		return ResponseEntity.ok(UserResponseMapper.INSTANCE.mapFromUserToUpdateModel(user));
 	}
 
 	@PostMapping("/login")

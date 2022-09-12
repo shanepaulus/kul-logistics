@@ -12,8 +12,6 @@ public interface UserService {
 
 	User registerUser(User user);
 
-	User updateUser(User user);
-
 	String generateToken(String email);
 
 }

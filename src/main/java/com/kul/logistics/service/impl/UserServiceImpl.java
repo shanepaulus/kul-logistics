@@ -39,12 +39,6 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 	}
 
 	@Override
-	public User updateUser(User user) {
-		user.setPassword(passwordEncoder.encode(user.getPassword()));
-		return userRepository.save(user);
-	}
-
-	@Override
 	public String generateToken(String email) {
 		return JWT.create()
 				.withSubject(email)
