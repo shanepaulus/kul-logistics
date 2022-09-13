@@ -14,9 +14,9 @@ import org.mapstruct.factory.Mappers;
  */
 
 @Mapper
-public interface UserMapper {
+public interface UserEntityMapper {
 
-	UserMapper INSTANCE = Mappers.getMapper(UserMapper.class);
+	UserEntityMapper INSTANCE = Mappers.getMapper(UserEntityMapper.class);
 
 	@Mapping(target = "id", ignore = true)
 	User mapFromUserRegisterRequestModel(UserRegisterRequest userRegisterRequestModel);

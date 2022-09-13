@@ -3,9 +3,12 @@ package com.kul.logistics.mapper;
 import java.util.List;
 
 import com.kul.logistics.domain.Location;
+import com.kul.logistics.domain.LocationLink;
+import com.kul.logistics.model.LocationLinkModel;
 import com.kul.logistics.model.response.LocationResponse;
 
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
 
 /**
@@ -21,4 +24,10 @@ public interface LocationResponseMapper {
 
 	List<LocationResponse> mapFromLocationList(List<Location> locationList);
 
+	@Mapping(target = "adjacentLocations", source = "locationLinkList")
+	LocationResponse mapFromLocation(Location location);
+
+	@Mapping(target = "id", source = "adjacentLocationId")
+	LocationLinkModel mapFromLocationLink(LocationLink locationLink);
+	
 }

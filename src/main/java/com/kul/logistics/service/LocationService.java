@@ -14,4 +14,9 @@ public interface LocationService {
 
 	List<Location> findAll();
 
+	Location createLocation(Location location);
+
+	Location updateLocation(Location location);
+
+	boolean deleteLocation(Integer id);
 }

@@ -1,8 +1,9 @@
-package com.kul.logistics.model.response;
+package com.kul.logistics.model.request;
 
 import java.util.List;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
+import javax.validation.constraints.NotNull;
+
 import com.kul.logistics.model.LocationLinkModel;
 
 import lombok.Data;
@@ -14,9 +15,9 @@ import lombok.Data;
  */
 
 @Data
-@JsonInclude(JsonInclude.Include.NON_NULL)
-public class LocationResponse {
+public class LocationUpdateRequest {
 
+	@NotNull(message = "Id required!")
 	private Integer id;
 	private String name;
 	private String description;

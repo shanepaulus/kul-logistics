@@ -3,12 +3,12 @@ package com.kul.logistics.api;
 import javax.validation.Valid;
 
 import com.kul.logistics.domain.User;
-import com.kul.logistics.mapper.UserMapper;
+import com.kul.logistics.mapper.UserEntityMapper;
 import com.kul.logistics.mapper.UserResponseMapper;
 import com.kul.logistics.model.request.UserLoginRequest;
 import com.kul.logistics.model.request.UserRegisterRequest;
 import com.kul.logistics.model.response.UserLoginResponse;
-import com.kul.logistics.model.response.UserRegisterResponseModel;
+import com.kul.logistics.model.response.UserRegisterResponse;
 import com.kul.logistics.service.impl.UserServiceImpl;
 
 import org.springframework.http.HttpStatus;
@@ -39,8 +39,8 @@ public class UserController {
 	private final AuthenticationManager authenticationManager;
 
 	@PostMapping("/register")
-	public ResponseEntity<UserRegisterResponseModel> register(@Valid @RequestBody UserRegisterRequest requestModel) {
-		User user = UserMapper.INSTANCE.mapFromUserRegisterRequestModel(requestModel);
+	public ResponseEntity<UserRegisterResponse> register(@Valid @RequestBody UserRegisterRequest requestModel) {
+		User user = UserEntityMapper.INSTANCE.mapFromUserRegisterRequestModel(requestModel);
 		user = userService.registerUser(user);
 		return ResponseEntity.status(HttpStatus.CREATED).body(UserResponseMapper.INSTANCE.mapFromUserToRegisterModel(user));
 	}

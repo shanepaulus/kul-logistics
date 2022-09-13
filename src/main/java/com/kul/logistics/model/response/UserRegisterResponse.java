@@ -9,7 +9,7 @@ import lombok.Data;
  */
 
 @Data
-public class UserRegisterResponseModel {
+public class UserRegisterResponse {
 
 	private String id;
 	private String email;
