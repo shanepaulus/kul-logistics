@@ -21,7 +21,7 @@ import lombok.Data;
 
 @Data
 @Entity
-public class Destination {
+public class Location {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,7 +29,7 @@ public class Destination {
 	@Column(nullable = false)
 	private String name;
 	@OneToMany(cascade = CascadeType.ALL)
-	@JoinColumn(name = "primary_destination_id")
-	private List<DestinationLink> destinationLinkList;
+	@JoinColumn(name = "primary_location_id")
+	private List<LocationLink> locationLinkList;
 
 }

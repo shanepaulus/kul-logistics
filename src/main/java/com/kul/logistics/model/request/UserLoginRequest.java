@@ -1,4 +1,4 @@
-package com.kul.logistics.model;
+package com.kul.logistics.model.request;
 
 import javax.validation.constraints.NotBlank;
 
@@ -11,7 +11,7 @@ import lombok.Data;
  */
 
 @Data
-public class UserLoginRequestModel {
+public class UserLoginRequest {
 
 	@NotBlank(message = "Email required!")
 	private String email;

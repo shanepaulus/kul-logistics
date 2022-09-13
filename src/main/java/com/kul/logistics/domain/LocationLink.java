@@ -1,5 +1,6 @@
 package com.kul.logistics.domain;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -15,12 +16,14 @@ import lombok.Data;
 
 @Data
 @Entity
-public class DestinationLink {
+public class LocationLink {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	private Integer destinationId;
+	@Column(nullable = false)
+	private Integer adjacentLocationId;
+	@Column(nullable = false)
 	private Double distance;
 
 }

@@ -1,4 +1,4 @@
-package com.kul.logistics.model;
+package com.kul.logistics.model.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -11,7 +11,7 @@ import lombok.Getter;
 
 @Getter
 @AllArgsConstructor
-public class UserLoginResponseModel {
+public class UserLoginResponse {
 
 	private String token;
 

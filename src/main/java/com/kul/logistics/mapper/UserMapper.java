@@ -1,7 +1,7 @@
 package com.kul.logistics.mapper;
 
 import com.kul.logistics.domain.User;
-import com.kul.logistics.model.UserRegisterRequestModel;
+import com.kul.logistics.model.request.UserRegisterRequest;
 
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -19,6 +19,6 @@ public interface UserMapper {
 	UserMapper INSTANCE = Mappers.getMapper(UserMapper.class);
 
 	@Mapping(target = "id", ignore = true)
-	User mapFromUserRegisterRequestModel(UserRegisterRequestModel userRegisterRequestModel);
+	User mapFromUserRegisterRequestModel(UserRegisterRequest userRegisterRequestModel);
 
 }

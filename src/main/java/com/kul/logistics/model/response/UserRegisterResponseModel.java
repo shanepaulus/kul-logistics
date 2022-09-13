@@ -1,4 +1,4 @@
-package com.kul.logistics.model;
+package com.kul.logistics.model.response;
 
 import lombok.Data;
 
