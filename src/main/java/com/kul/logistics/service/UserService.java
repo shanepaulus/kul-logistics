@@ -12,6 +12,4 @@ public interface UserService {
 
 	User registerUser(User user);
 
-	String generateToken(String email);
-
 }

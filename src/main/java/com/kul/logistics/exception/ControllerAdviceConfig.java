@@ -1,9 +1,10 @@
-package com.kul.logistics.advice;
+package com.kul.logistics.exception;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import com.kul.logistics.api.UserController;
+import com.auth0.jwt.exceptions.JWTVerificationException;
+import com.auth0.jwt.exceptions.TokenExpiredException;
 
 import org.hibernate.exception.ConstraintViolationException;
 import org.springdoc.api.ErrorMessage;
@@ -15,14 +16,17 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import lombok.extern.slf4j.Slf4j;
+
 /**
  * @author Shane Paulus
  * <p>
  * Date Created: 13-Sep-2022
  */
 
-@RestControllerAdvice(basePackageClasses = { UserController.class })
-public class ControllerAdvice {
+@RestControllerAdvice
+@Slf4j
+public class ControllerAdviceConfig {
 
 	@ExceptionHandler(MethodArgumentNotValidException.class)
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
@@ -48,6 +52,13 @@ public class ControllerAdvice {
 	@ExceptionHandler(AuthenticationException.class)
 	@ResponseStatus(HttpStatus.FORBIDDEN)
 	public ErrorMessage handleAuthenticationException(AuthenticationException exc) {
+		return new ErrorMessage(exc.getMessage());
+	}
+
+	@ExceptionHandler(JWTVerificationException.class)
+	@ResponseStatus(HttpStatus.BAD_REQUEST)
+	public ErrorMessage handTokenExpiredException(TokenExpiredException exc) {
+		log.info("Hmmmmm2");
 		return new ErrorMessage(exc.getMessage());
 	}
 }

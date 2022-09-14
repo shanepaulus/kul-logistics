@@ -1,10 +1,7 @@
 package com.kul.logistics.service.impl;
 
 import java.util.Collections;
-import java.util.Date;
 
-import com.auth0.jwt.JWT;
-import com.auth0.jwt.algorithms.Algorithm;
 import com.kul.logistics.domain.User;
 import com.kul.logistics.repo.UserRepository;
 import com.kul.logistics.service.UserService;
@@ -36,15 +33,6 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 	public User registerUser(User user) {
 		user.setPassword(passwordEncoder.encode(user.getPassword()));
 		return userRepository.save(user);
-	}
-
-	@Override
-	public String generateToken(String email) {
-		return JWT.create()
-				.withSubject(email)
-				.withExpiresAt(new Date(System.currentTimeMillis() + 5 * 60 * 1000))
-				.withIssuer("kul-logistics")
-				.sign(Algorithm.HMAC256("secret"));
 	}
 
 	@Override

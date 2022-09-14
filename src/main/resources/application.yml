@@ -14,3 +14,4 @@ spring:
         web-allow-others: false
   jpa:
     defer-datasource-initialization: true
+    open-in-view: false

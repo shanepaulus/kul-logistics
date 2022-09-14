@@ -9,6 +9,7 @@ import com.kul.logistics.model.request.UserLoginRequest;
 import com.kul.logistics.model.request.UserRegisterRequest;
 import com.kul.logistics.model.response.UserLoginResponse;
 import com.kul.logistics.model.response.UserRegisterResponse;
+import com.kul.logistics.service.JwtService;
 import com.kul.logistics.service.impl.UserServiceImpl;
 
 import org.springframework.http.HttpStatus;
@@ -21,7 +22,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import lombok.AllArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 
 /**
  * @author Shane Paulus
@@ -31,11 +31,11 @@ import lombok.extern.slf4j.Slf4j;
 
 @RestController
 @RequestMapping("/api/users")
-@Slf4j
 @AllArgsConstructor
 public class UserController {
 
 	private final UserServiceImpl userService;
+	private final JwtService jwtService;
 	private final AuthenticationManager authenticationManager;
 
 	@PostMapping("/register")
@@ -48,7 +48,7 @@ public class UserController {
 	@PostMapping("/login")
 	public ResponseEntity<UserLoginResponse> login(@RequestBody UserLoginRequest loginRequestModel) {
 		authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginRequestModel.getEmail(), loginRequestModel.getPassword()));
-		String token = userService.generateToken(loginRequestModel.getEmail());
+		String token = jwtService.generateToken(loginRequestModel.getEmail());
 		return ResponseEntity.ok(new UserLoginResponse(token));
 	}
 }

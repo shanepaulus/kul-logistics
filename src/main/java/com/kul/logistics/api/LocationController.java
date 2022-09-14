@@ -70,7 +70,4 @@ public class LocationController {
 				.INSTANCE.mapFromLocationList(locationService.findAll());
 		return ResponseEntity.ok(new LocationListResponse(locations));
 	}
-
-	//	@PutMapping("/update")
-	//	public ResponseEntity<LocationResponse> update(@Valid @RequestBody )
 }
