@@ -50,8 +50,6 @@ public class JwtRequestFilter extends OncePerRequestFilter {
 			DecodedJWT decodedJWT = verifier.verify(token);
 			String username = decodedJWT.getSubject();
 
-			log.info("username is >> {}", username);
-
 			if (username != null && !username.isEmpty()) {
 				UserDetailsService userDetailsService = applicationContext.getBean(UserDetailsService.class);
 				JwtService jwtService = applicationContext.getBean(JwtService.class);

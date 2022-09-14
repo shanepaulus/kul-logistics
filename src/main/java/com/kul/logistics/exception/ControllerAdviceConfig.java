@@ -46,19 +46,18 @@ public class ControllerAdviceConfig {
 	@ExceptionHandler(ConstraintViolationException.class)
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
 	public ErrorMessage handleContrstraintExceptionError(ConstraintViolationException exc) {
-		return new ErrorMessage(exc.getMessage());
+		return new ErrorMessage(exc.getClass() + ": " + exc.getMessage());
 	}
 
 	@ExceptionHandler(AuthenticationException.class)
 	@ResponseStatus(HttpStatus.FORBIDDEN)
 	public ErrorMessage handleAuthenticationException(AuthenticationException exc) {
-		return new ErrorMessage(exc.getMessage());
+		return new ErrorMessage(exc.getClass() + ": " + exc.getMessage());
 	}
 
 	@ExceptionHandler(JWTVerificationException.class)
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
 	public ErrorMessage handTokenExpiredException(TokenExpiredException exc) {
-		log.info("Hmmmmm2");
-		return new ErrorMessage(exc.getMessage());
+		return new ErrorMessage(exc.getClass() + ": " + exc.getMessage());
 	}
 }
