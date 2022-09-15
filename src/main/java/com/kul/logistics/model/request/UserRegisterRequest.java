@@ -13,11 +13,11 @@ import lombok.Data;
 @Data
 public class UserRegisterRequest {
 
-	@NotBlank(message = "Name required")
+	@NotBlank(message = "Name required!")
 	private String name;
-	@NotBlank(message = "Email required")
+	@NotBlank(message = "Email required!")
 	private String email;
-	@NotBlank(message = "Password required")
+	@NotBlank(message = "Password required!")
 	private String password;
 
 }

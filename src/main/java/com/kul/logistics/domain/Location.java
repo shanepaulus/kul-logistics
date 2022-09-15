@@ -1,10 +1,12 @@
 package com.kul.logistics.domain;
 
+import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -21,7 +23,7 @@ import lombok.Data;
 
 @Data
 @Entity
-public class Location {
+public class Location implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -30,8 +32,8 @@ public class Location {
 	private String name;
 	@Column
 	private String description;
-	@OneToMany(cascade = CascadeType.ALL)
-	@JoinColumn(name = "primary_location_id")
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@JoinColumn(name = "primary_location",referencedColumnName = "name")
 	private List<LocationLink> locationLinkList;
 
 }

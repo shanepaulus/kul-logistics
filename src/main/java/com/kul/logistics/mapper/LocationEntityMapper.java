@@ -28,6 +28,7 @@ public interface LocationEntityMapper {
 	@Mapping(target = "locationLinkList", source = "adjacentLocations")
 	Location mapFromUpdateRequest(LocationUpdateRequest request);
 
-	@Mapping(target = "adjacentLocationId", source = "id")
+	@Mapping(target = "adjacentLocation", source = "name")
+	@Mapping(target = "id", ignore = true)
 	LocationLink mapFromLocationLinkModel(LocationLinkModel locationLinkModel);
 }

@@ -27,7 +27,7 @@ public interface LocationResponseMapper {
 	@Mapping(target = "adjacentLocations", source = "locationLinkList")
 	LocationResponse mapFromLocation(Location location);
 
-	@Mapping(target = "id", source = "adjacentLocationId")
+	@Mapping(target = "name", source = "adjacentLocation")
 	LocationLinkModel mapFromLocationLink(LocationLink locationLink);
 	
 }

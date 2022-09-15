@@ -22,7 +22,7 @@ public class LocationLink {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	@Column(nullable = false)
-	private Integer adjacentLocationId;
+	private String adjacentLocation;
 	@Column(nullable = false)
 	private Double distance;
 

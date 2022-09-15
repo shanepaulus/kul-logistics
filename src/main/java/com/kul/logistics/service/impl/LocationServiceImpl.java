@@ -1,13 +1,11 @@
 package com.kul.logistics.service.impl;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 import javax.transaction.Transactional;
 
 import com.kul.logistics.domain.Location;
-import com.kul.logistics.domain.LocationLink;
 import com.kul.logistics.repo.LocationRepository;
 import com.kul.logistics.service.LocationLinkService;
 import com.kul.logistics.service.LocationService;
@@ -32,14 +30,6 @@ public class LocationServiceImpl implements LocationService {
 	@Override
 	public Location createLocation(Location location) {
 		Location persisted = locationRepository.save(location);
-		LocationLink locationLink = new LocationLink();
-		locationLink.setAdjacentLocationId(persisted.getId());
-		locationLink.setDistance(0.0);
-
-		List<LocationLink> locationLinkList = new ArrayList<>();
-		locationLinkList.add(locationLink);
-
-		persisted.setLocationLinkList(locationLinkList);
 		return locationRepository.save(persisted);
 	}
 
@@ -63,8 +53,15 @@ public class LocationServiceImpl implements LocationService {
 	@Override
 	@Transactional
 	public boolean deleteLocation(Integer id) {
-		if (locationLinkService.deleteLocationLinkByAdjacentLocationId(id)) {
-			locationRepository.deleteById(id);
+		Location location = locationRepository.findById(id).orElse(null);
+
+		if (location != null) {
+			if (locationLinkService.deleteLocationLinkByAdjacentLocation(location.getName())) {
+				locationRepository.deleteById(id);
+			}
+		} else {
+			throw new IllegalStateException("Could not find an existing location with "
+					+ "id={" + id + "} to delete!");
 		}
 
 		return locationRepository.findById(id).isEmpty();

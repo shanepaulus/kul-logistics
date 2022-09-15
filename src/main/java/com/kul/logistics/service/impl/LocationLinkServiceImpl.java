@@ -22,8 +22,8 @@ public class LocationLinkServiceImpl implements LocationLinkService {
 	private final LocationLinkRepository locationLinkRepository;
 
 	@Override
-	public boolean deleteLocationLinkByAdjacentLocationId(Integer id) {
-		locationLinkRepository.deleteByAdjacentLocationId(id);
-		return locationLinkRepository.findAllByAdjacentLocationId(id).isEmpty();
+	public boolean deleteLocationLinkByAdjacentLocation(String adjacentLocation) {
+		locationLinkRepository.deleteByAdjacentLocation(adjacentLocation);
+		return locationLinkRepository.findAllByAdjacentLocation(adjacentLocation).isEmpty();
 	}
 }

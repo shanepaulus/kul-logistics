@@ -16,8 +16,8 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface LocationLinkRepository extends JpaRepository<LocationLink, Integer> {
 
-	void deleteByAdjacentLocationId(Integer id);
+	void deleteByAdjacentLocation(String adjacentLocation);
 
-	List<LocationLink> findAllByAdjacentLocationId(Integer id);
+	List<LocationLink> findAllByAdjacentLocation(String adjacentLocation);
 
 }
