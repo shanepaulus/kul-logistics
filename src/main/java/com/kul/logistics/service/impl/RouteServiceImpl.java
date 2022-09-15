@@ -48,8 +48,9 @@ public class RouteServiceImpl implements RouteService {
 
 		Set<String> visitedLocations = new HashSet<>();
 		Stack<String> unvisitedLocations = new Stack<>();
-
 		unvisitedLocations.add(origin);
+
+		int counter = 0;
 
 		while (!unvisitedLocations.isEmpty()) {
 			Location currentLocation = locationMap.get(unvisitedLocations.pop());
@@ -70,6 +71,10 @@ public class RouteServiceImpl implements RouteService {
 				visitedLocations.add(currentLocation.getName());
 			}
 
+			counter++;
+
+			System.out.println("The current location is >> " + currentLocation.getName());
+
 			if (currentLocation.getName().equals(destination)) {
 				break;
 			}
@@ -85,19 +90,19 @@ public class RouteServiceImpl implements RouteService {
 		return null;
 	}
 
-//	private String calculateRoute(Map<String, String> distanceMap, String origin, String destination) {
-//		StringBuilder routeBuilder = new StringBuilder();
-//		String currentLocation = destination;
-//
-//		while (!currentLocation.equals(origin)) {
-//			routeBuilder.append(currentLocation);
-//			currentLocation = distanceMap.get(currentLocation);
-//
-//			System.out.println("Current location >> " + currentLocation);
-//		}
-//
-//		return routeBuilder.toString();
-//	}
+	//	private String calculateRoute(Map<String, String> distanceMap, String origin, String destination) {
+	//		StringBuilder routeBuilder = new StringBuilder();
+	//		String currentLocation = destination;
+	//
+	//		while (!currentLocation.equals(origin)) {
+	//			routeBuilder.append(currentLocation);
+	//			currentLocation = distanceMap.get(currentLocation);
+	//
+	//			System.out.println("Current location >> " + currentLocation);
+	//		}
+	//
+	//		return routeBuilder.toString();
+	//	}
 
 	private String getNextShortestDistanceLocation(Map<String, Double> shortestDistanceMap, String currentLocation) {
 		Double lowestDistance = null;
