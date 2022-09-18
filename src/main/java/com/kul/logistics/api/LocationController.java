@@ -39,7 +39,7 @@ public class LocationController {
 
 	private final LocationService locationService;
 
-	@PostMapping("/create")
+	@PostMapping
 	public ResponseEntity<LocationResponse> create(@Valid @RequestBody LocationCreateRequest request) {
 		Location location = LocationEntityMapper.INSTANCE.mapFromAddRequest(request);
 		location = locationService.createLocation(location);
@@ -48,7 +48,7 @@ public class LocationController {
 		return ResponseEntity.status(HttpStatus.CREATED).body(locationResponse);
 	}
 
-	@PutMapping("/update")
+	@PutMapping
 	public ResponseEntity<LocationResponse> updateLocation(@Valid @RequestBody LocationUpdateRequest request) {
 		Location location = LocationEntityMapper.INSTANCE.mapFromUpdateRequest(request);
 		location = locationService.updateLocation(location);

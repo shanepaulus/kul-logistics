@@ -38,7 +38,7 @@ public class UserController {
 	private final JwtService jwtService;
 	private final AuthenticationManager authenticationManager;
 
-	@PostMapping("/register")
+	@PostMapping
 	public ResponseEntity<UserRegisterResponse> register(@Valid @RequestBody UserRegisterRequest requestModel) {
 		User user = UserEntityMapper.INSTANCE.mapFromUserRegisterRequestModel(requestModel);
 		user = userService.registerUser(user);

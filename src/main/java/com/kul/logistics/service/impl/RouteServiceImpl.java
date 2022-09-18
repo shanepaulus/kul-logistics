@@ -1,8 +1,6 @@
 package com.kul.logistics.service.impl;
 
 import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.Stack;
@@ -46,76 +44,77 @@ public class RouteServiceImpl implements RouteService {
 		preLoadShortestDistanceMap(shortestDistanceMap, locationMap.keySet());
 		preLoadPreviousLocationMap(previousLocationMap, locationMap.keySet());
 
-		Set<String> visitedLocations = new HashSet<>();
 		Stack<String> unvisitedLocations = new Stack<>();
 		unvisitedLocations.add(origin);
 
-		int counter = 0;
-
 		while (!unvisitedLocations.isEmpty()) {
 			Location currentLocation = locationMap.get(unvisitedLocations.pop());
-			List<LocationLink> locationLinkList = currentLocation.getLocationLinkList();
 
-			if (!locationLinkList.isEmpty()) {
-				for (LocationLink locationLink : locationLinkList) {
-					Double shortestDistance = shortestDistanceMap.get(locationLink.getAdjacentLocation());
+			if (currentLocation.getLocationLinkList() != null && !currentLocation.getLocationLinkList().isEmpty()) {
+				LocationLink nearestLocation = null;
+				Double nearestLocationDistance = Double.MAX_VALUE;
 
-					if (locationLink.getDistance() < shortestDistance) {
+				for (LocationLink locationLink : currentLocation.getLocationLinkList()) {
+					// Set the nearest location link
+					if (nearestLocationDistance > locationLink.getDistance()) {
+						nearestLocationDistance = locationLink.getDistance();
+						nearestLocation = locationLink;
+					}
+
+					// Update the shortest distance map
+					if (shortestDistanceMap.get(locationLink.getAdjacentLocation()) > locationLink.getDistance()) {
 						shortestDistanceMap.put(locationLink.getAdjacentLocation(), locationLink.getDistance());
 						previousLocationMap.put(locationLink.getAdjacentLocation(), currentLocation.getName());
 					}
 				}
 
-				String nextLocation = getNextShortestDistanceLocation(shortestDistanceMap, currentLocation.getName());
-				unvisitedLocations.add(nextLocation);
-				visitedLocations.add(currentLocation.getName());
-			}
-
-			counter++;
-
-			System.out.println("The current location is >> " + currentLocation.getName());
-
-			if (currentLocation.getName().equals(destination)) {
-				break;
+				if (nearestLocation != null) {
+					unvisitedLocations.add(nearestLocation.getAdjacentLocation());
+				}
 			}
 		}
 
-		System.out.println("The shortestDistanceMap >> " + shortestDistanceMap);
-		System.out.println("The previousLocationMap >> " + previousLocationMap);
-		System.out.println("The unvisitedLocationMap >> " + unvisitedLocations);
-		System.out.println("The visitedLocations >> " + visitedLocations);
+		String path = getShortestDistancePath(previousLocationMap, origin, destination);
+		Double totalDistance = getTotalDistance(previousLocationMap, shortestDistanceMap, origin, destination);
 
-		//System.out.println(calculateRoute(previousLocationMap, origin, destination));
-
-		return null;
+		Route route = new Route();
+		route.setRoute(path);
+		route.setTotalDistance(totalDistance);
+		route.setCostOfDelivery(1 * totalDistance);
+		return route;
 	}
 
-	//	private String calculateRoute(Map<String, String> distanceMap, String origin, String destination) {
-	//		StringBuilder routeBuilder = new StringBuilder();
-	//		String currentLocation = destination;
-	//
-	//		while (!currentLocation.equals(origin)) {
-	//			routeBuilder.append(currentLocation);
-	//			currentLocation = distanceMap.get(currentLocation);
-	//
-	//			System.out.println("Current location >> " + currentLocation);
-	//		}
-	//
-	//		return routeBuilder.toString();
-	//	}
+	private Double getTotalDistance(Map<String, String> previousLocationMap, Map<String, Double> shortestDistanceMap, String origin, String destination) {
+		if (!shortestDistanceMap.containsKey(destination)) {
+			throw new IllegalStateException("The origin / destination keys was not present in the shortest distance map!");
+		} else {
+			Double totalDistance = 0.0;
+			String currentLocation = destination;
 
-	private String getNextShortestDistanceLocation(Map<String, Double> shortestDistanceMap, String currentLocation) {
-		Double lowestDistance = null;
-		String nextShortestDistance = null;
-
-		for (Map.Entry<String, Double> entry : shortestDistanceMap.entrySet()) {
-			if (!entry.getKey().equals(currentLocation) && (lowestDistance == null || entry.getValue() < lowestDistance)) {
-				lowestDistance = entry.getValue();
-				nextShortestDistance = entry.getKey();
+			while (!currentLocation.equals(origin)) {
+				totalDistance += shortestDistanceMap.get(currentLocation);
+				currentLocation = previousLocationMap.get(currentLocation);
 			}
-		}
 
-		return nextShortestDistance;
+			return totalDistance;
+		}
+	}
+
+	private String getShortestDistancePath(Map<String, String> shortestDistanceMap, String origin, String destination) {
+		if (!shortestDistanceMap.containsKey(origin) || !shortestDistanceMap.containsKey(destination)) {
+			throw new IllegalStateException("The origin / destination keys was not present in the shortest distance map!");
+		} else {
+			StringBuilder pathBuilder = new StringBuilder(destination).append(" > ");
+			String currentLocation = shortestDistanceMap.get(destination);
+
+			while (!currentLocation.equals(origin)) {
+				pathBuilder.append(currentLocation).append(" > ");
+				currentLocation = shortestDistanceMap.get(currentLocation);
+			}
+
+			pathBuilder.append(origin).reverse();
+			return pathBuilder.toString();
+		}
 	}
 
 	private void preLoadPreviousLocationMap(Map<String, String> previousLocationMap, Set<String> locationNameSet) {

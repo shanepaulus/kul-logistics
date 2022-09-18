@@ -71,7 +71,7 @@ public class UserControllerTest {
 
 		doReturn(new User()).when(userService).registerUser(any(User.class));
 		mockMvc.perform(MockMvcRequestBuilders
-						.post("/api/users/register")
+						.post("/api/users")
 						.contentType(MediaType.APPLICATION_JSON)
 						.content(mapObjectToJson(userLoginRequest)))
 				.andExpect(status().isCreated())
@@ -88,7 +88,7 @@ public class UserControllerTest {
 
 		doReturn(new User()).when(userService).registerUser(any(User.class));
 		mockMvc.perform(MockMvcRequestBuilders
-						.post("/api/users/register")
+						.post("/api/users")
 						.contentType(MediaType.APPLICATION_JSON)
 						.content(mapObjectToJson(userLoginRequest)))
 				.andExpect(status().isBadRequest())

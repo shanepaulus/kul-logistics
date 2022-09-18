@@ -4,7 +4,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.auth0.jwt.exceptions.JWTVerificationException;
-import com.auth0.jwt.exceptions.TokenExpiredException;
 
 import org.hibernate.exception.ConstraintViolationException;
 import org.springdoc.api.ErrorMessage;
@@ -51,22 +50,15 @@ public class ControllerAdviceConfig {
 		return new ErrorMessage(exc.getClass() + ": " + exc.getMessage());
 	}
 
-	@ExceptionHandler({AuthenticationException.class, UsernameNotFoundException.class})
+	@ExceptionHandler({ AuthenticationException.class, UsernameNotFoundException.class })
 	@ResponseStatus(HttpStatus.FORBIDDEN)
 	public ErrorMessage handleAuthenticationException(AuthenticationException exc) {
 		return new ErrorMessage(exc.getClass() + ": " + exc.getMessage());
 	}
 
-	@ExceptionHandler(JWTVerificationException.class)
+	@ExceptionHandler({ JWTVerificationException.class, HttpMessageNotReadableException.class, IllegalStateException.class })
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
-	public ErrorMessage handTokenExpiredException(TokenExpiredException exc) {
-		return new ErrorMessage(exc.getClass() + ": " + exc.getMessage());
+	public ErrorMessage handleException(Exception exc) {
+		return new ErrorMessage(exc.getMessage());
 	}
-
-	@ExceptionHandler(HttpMessageNotReadableException.class)
-	@ResponseStatus(HttpStatus.BAD_REQUEST)
-	public ErrorMessage handTokenExpiredException(HttpMessageNotReadableException exc) {
-		return new ErrorMessage(exc.getClass() + ": " + exc.getMessage());
-	}
-
 }

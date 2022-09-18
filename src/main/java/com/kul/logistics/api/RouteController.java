@@ -2,6 +2,8 @@ package com.kul.logistics.api;
 
 import javax.validation.Valid;
 
+import com.kul.logistics.domain.Route;
+import com.kul.logistics.mapper.RouteResponseMapper;
 import com.kul.logistics.model.request.RouteRequest;
 import com.kul.logistics.model.response.RouteResponse;
 import com.kul.logistics.service.RouteService;
@@ -29,6 +31,7 @@ public class RouteController {
 
 	@PostMapping
 	public ResponseEntity<RouteResponse> calculateRoute(@Valid @RequestBody RouteRequest request) {
-		return null;
+		Route route = routeService.calculateRoute(request.getOrigin(), request.getDestination());
+		return ResponseEntity.ok(RouteResponseMapper.INSTANCE.mapFromRoute(route));
 	}
 }
