@@ -1,14 +1,16 @@
 pipeline {
   agent any
 
+  tools {
+    gradle 'gradle-7.6'
+  }
+
   stages {
     stage("Verify") {
-      def gradleHome = tool name: 'gradle-7.6', type: 'gradle'
-
       steps {
         withGradle() {
-          sh "${gradleHome}/bin/gradle -v"
-        }
+          sh "gradle -v"
+
       }
     }
   }
