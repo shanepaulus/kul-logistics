@@ -8,7 +8,7 @@ pipeline {
     stages {
         stage('Verify') {
             steps {
-                echo "${GRADLE_HOME}"
+                sh "ls -a"
             }
         }
     }
