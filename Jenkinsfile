@@ -8,7 +8,7 @@ pipeline {
     stages {
         stage('Verify') {
             steps {
-                sh 'gradle --version'
+                echo "${GRADLE_HOME}"
             }
         }
     }
