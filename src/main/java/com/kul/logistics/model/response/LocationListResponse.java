@@ -1,9 +1,7 @@
 package com.kul.logistics.model.response;
 
-import java.util.List;
-
 import com.fasterxml.jackson.annotation.JsonProperty;
-
+import java.util.List;
 import lombok.AllArgsConstructor;
 
 /**
@@ -15,7 +13,7 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public class LocationListResponse {
 
-	@JsonProperty
-	private final List<LocationResponse> locations;
+  @JsonProperty
+  private final List<LocationResponse> locations;
 
 }

@@ -2,7 +2,6 @@ package com.kul.logistics.mapper;
 
 import com.kul.logistics.domain.Route;
 import com.kul.logistics.model.response.RouteResponse;
-
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 
@@ -15,8 +14,8 @@ import org.mapstruct.factory.Mappers;
 @Mapper
 public interface RouteResponseMapper {
 
-	RouteResponseMapper INSTANCE = Mappers.getMapper(RouteResponseMapper.class);
+  RouteResponseMapper INSTANCE = Mappers.getMapper(RouteResponseMapper.class);
 
-	RouteResponse mapFromRoute(Route route);
+  RouteResponse mapFromRoute(Route route);
 
 }

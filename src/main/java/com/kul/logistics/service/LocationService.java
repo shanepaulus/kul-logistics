@@ -1,8 +1,7 @@
 package com.kul.logistics.service;
 
-import java.util.List;
-
 import com.kul.logistics.domain.Location;
+import java.util.List;
 
 /**
  * @author Shane Paulus
@@ -12,11 +11,11 @@ import com.kul.logistics.domain.Location;
 
 public interface LocationService {
 
-	List<Location> findAll();
+  List<Location> findAll();
 
-	Location createLocation(Location location);
+  Location createLocation(Location location);
 
-	Location updateLocation(Location location);
+  Location updateLocation(Location location);
 
-	boolean deleteLocation(Integer id);
+  boolean deleteLocation(Integer id);
 }

@@ -1,7 +1,6 @@
 package com.kul.logistics.model.request;
 
-import javax.validation.constraints.NotBlank;
-
+import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 
 /**
@@ -13,9 +12,9 @@ import lombok.Data;
 @Data
 public class UserLoginRequest {
 
-	@NotBlank(message = "Email required!")
-	private String email;
-	@NotBlank(message = "Password required!")
-	private String password;
+  @NotBlank(message = "Email required!")
+  private String email;
+  @NotBlank(message = "Password required!")
+  private String password;
 
 }

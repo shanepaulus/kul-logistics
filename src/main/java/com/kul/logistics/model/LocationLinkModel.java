@@ -11,7 +11,7 @@ import lombok.Data;
 @Data
 public class LocationLinkModel {
 
-	private String name;
-	private Double distance;
+  private String name;
+  private Double distance;
 
 }

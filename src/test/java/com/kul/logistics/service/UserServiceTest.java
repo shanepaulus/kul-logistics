@@ -7,4 +7,5 @@ package com.kul.logistics.service;
  */
 
 public class UserServiceTest {
+
 }

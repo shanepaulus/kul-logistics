@@ -1,11 +1,8 @@
 package com.kul.logistics.model.request;
 
-import java.util.List;
-
-import javax.validation.constraints.NotNull;
-
 import com.kul.logistics.model.LocationLinkModel;
-
+import java.util.List;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
 /**
@@ -17,10 +14,10 @@ import lombok.Data;
 @Data
 public class LocationUpdateRequest {
 
-	@NotNull(message = "Id required!")
-	private Integer id;
-	private String name;
-	private String description;
-	private List<LocationLinkModel> adjacentLocations;
+  @NotNull(message = "Id required!")
+  private Integer id;
+  private String name;
+  private String description;
+  private List<LocationLinkModel> adjacentLocations;
 
 }

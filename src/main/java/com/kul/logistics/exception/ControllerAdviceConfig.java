@@ -1,10 +1,9 @@
 package com.kul.logistics.exception;
 
+import com.auth0.jwt.exceptions.JWTVerificationException;
 import java.util.HashMap;
 import java.util.Map;
-
-import com.auth0.jwt.exceptions.JWTVerificationException;
-
+import lombok.extern.slf4j.Slf4j;
 import org.hibernate.exception.ConstraintViolationException;
 import org.springdoc.api.ErrorMessage;
 import org.springframework.http.HttpStatus;
@@ -17,8 +16,6 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-import lombok.extern.slf4j.Slf4j;
-
 /**
  * @author Shane Paulus
  * <p>
@@ -29,36 +26,37 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class ControllerAdviceConfig {
 
-	@ExceptionHandler(MethodArgumentNotValidException.class)
-	@ResponseStatus(HttpStatus.BAD_REQUEST)
-	public Map<String, String> handleFieldValidationErrors(MethodArgumentNotValidException exc) {
-		Map<String, String> errors = new HashMap<>();
-		exc.getBindingResult()
-				.getAllErrors()
-				.forEach(e -> {
-					String fieldName = ((FieldError) e).getField();
-					String message = e.getDefaultMessage();
-					errors.put(fieldName, message);
-				});
+  @ExceptionHandler(MethodArgumentNotValidException.class)
+  @ResponseStatus(HttpStatus.BAD_REQUEST)
+  public Map<String, String> handleFieldValidationErrors(MethodArgumentNotValidException exc) {
+    Map<String, String> errors = new HashMap<>();
+    exc.getBindingResult()
+        .getAllErrors()
+        .forEach(e -> {
+          String fieldName = ((FieldError) e).getField();
+          String message = e.getDefaultMessage();
+          errors.put(fieldName, message);
+        });
 
-		return errors;
-	}
+    return errors;
+  }
 
-	@ExceptionHandler(ConstraintViolationException.class)
-	@ResponseStatus(HttpStatus.BAD_REQUEST)
-	public ErrorMessage handleContrstraintExceptionError(ConstraintViolationException exc) {
-		return new ErrorMessage(exc.getClass() + ": " + exc.getMessage());
-	}
+  @ExceptionHandler(ConstraintViolationException.class)
+  @ResponseStatus(HttpStatus.BAD_REQUEST)
+  public ErrorMessage handleContrstraintExceptionError(ConstraintViolationException exc) {
+    return new ErrorMessage(exc.getClass() + ": " + exc.getMessage());
+  }
 
-	@ExceptionHandler({ AuthenticationException.class, UsernameNotFoundException.class })
-	@ResponseStatus(HttpStatus.FORBIDDEN)
-	public ErrorMessage handleAuthenticationException(AuthenticationException exc) {
-		return new ErrorMessage(exc.getClass() + ": " + exc.getMessage());
-	}
+  @ExceptionHandler({AuthenticationException.class, UsernameNotFoundException.class})
+  @ResponseStatus(HttpStatus.FORBIDDEN)
+  public ErrorMessage handleAuthenticationException(AuthenticationException exc) {
+    return new ErrorMessage(exc.getClass() + ": " + exc.getMessage());
+  }
 
-	@ExceptionHandler({ JWTVerificationException.class, HttpMessageNotReadableException.class, IllegalStateException.class })
-	@ResponseStatus(HttpStatus.BAD_REQUEST)
-	public ErrorMessage handleException(Exception exc) {
-		return new ErrorMessage(exc.getMessage());
-	}
+  @ExceptionHandler({JWTVerificationException.class, HttpMessageNotReadableException.class,
+      IllegalStateException.class})
+  @ResponseStatus(HttpStatus.BAD_REQUEST)
+  public ErrorMessage handleException(Exception exc) {
+    return new ErrorMessage(exc.getMessage());
+  }
 }

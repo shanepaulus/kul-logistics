@@ -1,7 +1,6 @@
 package com.kul.logistics.model.request;
 
-import javax.validation.constraints.NotBlank;
-
+import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 
 /**
@@ -13,9 +12,9 @@ import lombok.Data;
 @Data
 public class RouteRequest {
 
-	@NotBlank(message = "Origin required")
-	private String origin;
-	@NotBlank(message = "Destination required")
-	private String destination;
+  @NotBlank(message = "Origin required")
+  private String origin;
+  @NotBlank(message = "Destination required")
+  private String destination;
 
 }

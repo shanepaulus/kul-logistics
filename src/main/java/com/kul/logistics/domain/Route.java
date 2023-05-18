@@ -11,8 +11,8 @@ import lombok.Data;
 @Data
 public class Route {
 
-	private String route;
-	private Double totalDistance;
-	private Double costOfDelivery;
+  private String route;
+  private Double totalDistance;
+  private Double costOfDelivery;
 
 }

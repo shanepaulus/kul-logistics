@@ -10,6 +10,6 @@ import com.kul.logistics.domain.User;
 
 public interface UserService {
 
-	User registerUser(User user);
+  User registerUser(User user);
 
 }

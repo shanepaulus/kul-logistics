@@ -10,6 +10,6 @@ import com.kul.logistics.domain.Route;
 
 public interface RouteService {
 
-	Route calculateRoute(String origin, String destination);
+  Route calculateRoute(String origin, String destination);
 
 }

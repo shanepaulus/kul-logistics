@@ -1,7 +1,6 @@
 package com.kul.logistics.model.request;
 
-import javax.validation.constraints.NotBlank;
-
+import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 
 /**
@@ -13,8 +12,8 @@ import lombok.Data;
 @Data
 public class LocationCreateRequest {
 
-	@NotBlank(message = "Name required")
-	private String name;
-	private String description;
+  @NotBlank(message = "Name required")
+  private String name;
+  private String description;
 
 }

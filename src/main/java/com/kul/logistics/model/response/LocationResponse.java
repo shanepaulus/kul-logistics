@@ -1,10 +1,8 @@
 package com.kul.logistics.model.response;
 
-import java.util.List;
-
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.kul.logistics.model.LocationLinkModel;
-
+import java.util.List;
 import lombok.Data;
 
 /**
@@ -17,9 +15,9 @@ import lombok.Data;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class LocationResponse {
 
-	private Integer id;
-	private String name;
-	private String description;
-	private List<LocationLinkModel> adjacentLocations;
+  private Integer id;
+  private String name;
+  private String description;
+  private List<LocationLinkModel> adjacentLocations;
 
 }

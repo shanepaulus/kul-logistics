@@ -11,7 +11,7 @@ import lombok.Data;
 @Data
 public class UserRegisterResponse {
 
-	private String id;
-	private String email;
+  private String id;
+  private String email;
 
 }

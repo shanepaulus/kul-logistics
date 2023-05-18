@@ -10,8 +10,8 @@ import java.util.Date;
 
 public interface JwtService {
 
-	String generateToken(String email);
+  String generateToken(String email);
 
-	boolean isTokenExpired(String token, Date currentDate);
-	
+  boolean isTokenExpired(String token, Date currentDate);
+
 }

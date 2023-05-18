@@ -8,6 +8,6 @@ package com.kul.logistics.service;
 
 public interface LocationLinkService {
 
-	boolean deleteLocationLinkByAdjacentLocation(String adjacentLocation);
+  boolean deleteLocationLinkByAdjacentLocation(String adjacentLocation);
 
 }

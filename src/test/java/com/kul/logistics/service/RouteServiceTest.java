@@ -1,7 +1,6 @@
 package com.kul.logistics.service;
 
-import javax.transaction.Transactional;
-
+import jakarta.transaction.Transactional;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.MockitoAnnotations;
@@ -18,20 +17,20 @@ import org.springframework.boot.test.mock.mockito.SpyBean;
 @SpringBootTest
 public class RouteServiceTest {
 
-	@SpyBean
-	private LocationService locationService;
-	@Autowired
-	private RouteService routeService;
+  @SpyBean
+  private LocationService locationService;
+  @Autowired
+  private RouteService routeService;
 
-	@BeforeEach
-	public void before() {
-		MockitoAnnotations.openMocks(this);
-	}
+  @BeforeEach
+  public void before() {
+    MockitoAnnotations.openMocks(this);
+  }
 
-	@Test
-	@Transactional
-	public void testCalculateRoute() {
-		System.out.println(routeService.calculateRoute("A", "C"));
-		// Route should be A -> B -> F...
-	}
+  @Test
+  @Transactional
+  public void testCalculateRoute() {
+    System.out.println(routeService.calculateRoute("A", "C"));
+    // Route should be A -> B -> F...
+  }
 }
