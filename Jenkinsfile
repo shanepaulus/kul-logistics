@@ -4,7 +4,7 @@ pipeline {
     stages {
         stage('Verify') {
             steps {
-                echo 'Hello world'
+                sh 'gradle --version'
             }
         }
     }
