@@ -2,9 +2,21 @@ pipeline {
     agent any
 
     stages {
-        stage('Verify') {
+        stage('Build') {
             steps {
-                sh "gradle -v"
+                sh "gradle clean build -x"
+            }
+        }
+
+        stage('Test') {
+            steps {
+                sh "gradle test"
+            }
+        }
+
+        stage('Deploy') {
+            steps {
+                //sh "gradle clean build -x"
             }
         }
     }
