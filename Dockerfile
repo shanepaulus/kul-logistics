@@ -1,5 +1,4 @@
 FROM eclipse-temurin:17-jdk-jammy
-ARG JAR_FILE=build/*.jar
-COPY ${JAR_FILE} kul-logistics.jar
+COPY build/libs/kul-logistics-0.0.1-SNAPSHOT.jar kul-logistics.jar
 
 ENTRYPOINT ["java","-jar","/kul-logistics.jar"]
